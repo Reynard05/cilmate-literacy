@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>EcoLiteracy | Climate Education for All</title>
+  <!-- Google Fonts + modern font stack -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  <!-- Font Awesome 6 (free) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background-color: #fbfef9;
+      color: #1a2a1f;
+      line-height: 1.5;
+      scroll-behavior: smooth;
+    }
+
+    /* modern container utility */
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 32px;
+    }
+
+    /* typography */
+    h1, h2, h3 {
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    h1 {
+      font-size: clamp(2.8rem, 6vw, 4.2rem);
+      line-height: 1.2;
+    }
+
+    h2 {
+      font-size: clamp(2rem, 4vw, 2.6rem);
+      margin-bottom: 1rem;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 3rem;
+      position: relative;
+    }
+    .section-title:after {
+      content: '';
+      display: block;
+      width: 70px;
+      height: 4px;
+      background: #2c7a4b;
+      margin: 0.8rem auto 0;
+      border-radius: 4px;
+    }
+
+    /* buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background-color: #2c7a4b;
+      color: white;
+      padding: 12px 28px;
+      border-radius: 40px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.25s ease;
+      border: none;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+    .btn-outline {
+      background: transparent;
+      border: 2px solid #2c7a4b;
+      color: #1e3a2f;
+    }
+    .btn-outline:hover {
+      background: #2c7a4b;
+      color: white;
+      transform: translateY(-2px);
+    }
+    .btn:hover {
+      background-color: #1e593a;
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px -8px rgba(44, 122, 75, 0.3);
+    }
+
+    /* header / nav */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 24px 0;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+    .logo {
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: #1f4f2d;
+      letter-spacing: -0.02em;
+    }
+    .logo i {
+      color: #2c7a4b;
+      margin-right: 6px;
+    }
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+    }
+    .nav-links a {
+      text-decoration: none;
+      font-weight: 500;
+      color: #1f2e1c;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover {
+      color: #2c7a4b;
+    }
+    /* mobile menu */
+    .menu-toggle {
+      display: none;
+      font-size: 1.8rem;
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: #1f4f2d;
+    }
+
+    /* hero */
+    .hero {
+      padding: 60px 0 80px;
+      background: linear-gradient(135deg, #eaf7ed 0%, #d4eedb 100%);
+      border-radius: 0 0 48px 48px;
+    }
+    .hero-grid {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 48px;
+    }
+    .hero-content {
+      flex: 1.2;
+    }
+    .hero-content p {
+      font-size: 1.2rem;
+      color: #2a4225;
+      margin: 24px 0 32px;
+      max-width: 550px;
+    }
+    .hero-stats {
+      display: flex;
+      gap: 32px;
+      margin-top: 32px;
+    }
+    .stat {
+      text-align: left;
+    }
+    .stat-number {
+      font-size: 2rem;
+      font-weight: 800;
+      color: #1c6e3f;
+    }
+    .hero-image {
+      flex: 0.9;
+      text-align: center;
+    }
+    .hero-image img {
+      max-width: 100%;
+      border-radius: 32px;
+      box-shadow: 0 25px 40px -18px rgba(0,0,0,0.2);
+    }
+
+    /* cards / features */
+    .cards-section {
+      padding: 80px 0;
+    }
+    .cards-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 32px;
+      justify-content: center;
+    }
+    .card {
+      background: white;
+      border-radius: 28px;
+      padding: 32px 28px;
+      flex: 1;
+      min-width: 260px;
+      transition: all 0.3s;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.02), 0 2px 6px rgba(0,0,0,0.05);
+      border: 1px solid #e2f0e2;
+    }
+    .card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 35px -12px rgba(44, 122, 75, 0.15);
+      border-color: #bdd9bd;
+    }
+    .card-icon {
+      font-size: 2.8rem;
+      color: #2c7a4b;
+      margin-bottom: 24px;
+    }
+    .card h3 {
+      font-size: 1.6rem;
+      margin-bottom: 12px;
+    }
+    .card p {
+      color: #3b4e36;
+    }
+
+    /* impact / mission */
+    .impact-section {
+      background: #f0f7ed;
+      padding: 80px 0;
+      border-radius: 48px;
+      margin: 20px 0;
+    }
+    .two-columns {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 48px;
+      align-items: center;
+    }
+    .impact-text {
+      flex: 1;
+    }
+    .impact-list {
+      list-style: none;
+      margin-top: 24px;
+    }
+    .impact-list li {
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 500;
+    }
+    .impact-list i {
+      color: #2c7a4b;
+      font-size: 1.4rem;
+      width: 28px;
+    }
+    .impact-visual {
+      flex: 1;
+      background: #ffffffcc;
+      border-radius: 32px;
+      padding: 20px;
+      text-align: center;
+    }
+    .quote {
+      font-style: italic;
+      font-size: 1.2rem;
+      background: white;
+      padding: 28px;
+      border-radius: 28px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.03);
+    }
+
+    /* grassroots / youth focus */
+    .youth-section {
+      padding: 80px 0;
+    }
+    .youth-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 32px;
+      margin-top: 32px;
+    }
+    .youth-card {
+      background: white;
+      border-radius: 28px;
+      padding: 28px;
+      flex: 1;
+      text-align: center;
+      border: 1px solid #e0efdf;
+    }
+    .youth-card i {
+      font-size: 2.4rem;
+      background: #e9f3e6;
+      padding: 16px;
+      border-radius: 60px;
+      color: #2c7a4b;
+    }
+
+    /* call to action */
+    .cta-section {
+      background: #1e3a2f;
+      color: white;
+      padding: 70px 0;
+      text-align: center;
+      border-radius: 48px;
+      margin: 40px 0;
+    }
+    .cta-section h2 {
+      color: white;
+    }
+    .cta-section .btn {
+      background: #ffd966;
+      color: #1e3a2f;
+      margin-top: 28px;
+    }
+    .cta-section .btn:hover {
+      background: #ffcd38;
+    }
+
+    /* footer */
+    footer {
+      background: #121e0f;
+      color: #cfe6cf;
+      padding: 48px 0 24px;
+      border-radius: 32px 32px 0 0;
+      margin-top: 40px;
+    }
+    .footer-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 40px;
+      margin-bottom: 40px;
+    }
+    .footer-col h4 {
+      color: white;
+      margin-bottom: 18px;
+      font-weight: 600;
+    }
+    .footer-col p, .footer-col a {
+      color: #bcddae;
+      text-decoration: none;
+      line-height: 1.8;
+    }
+    .social i {
+      font-size: 1.5rem;
+      margin-right: 18px;
+      transition: 0.2s;
+    }
+    .social i:hover {
+      color: white;
+    }
+    .copyright {
+      text-align: center;
+      padding-top: 32px;
+      border-top: 1px solid #2c4625;
+      font-size: 0.85rem;
+    }
+
+    /* responsiveness */
+    @media (max-width: 860px) {
+      .container {
+        padding: 0 24px;
+      }
+      .navbar {
+        flex-direction: row;
+        justify-content: space-between;
+      }
+      .nav-links {
+        display: none;
+        flex-direction: column;
+        background: white;
+        position: absolute;
+        top: 90px;
+        left: 24px;
+        right: 24px;
+        padding: 28px;
+        border-radius: 28px;
+        box-shadow: 0 20px 30px rgba(0,0,0,0.1);
+        gap: 20px;
+        z-index: 100;
+      }
+      .nav-links.show {
+        display: flex;
+      }
+      .menu-toggle {
+        display: block;
+      }
+      .hero-grid, .two-columns {
+        flex-direction: column;
+      }
+      .hero-stats {
+        flex-wrap: wrap;
+      }
+    }
+    @media (min-width: 861px) {
+      .nav-links {
+        display: flex !important;
+      }
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    .placeholder-svg {
+      background: #cfe6cf;
+      border-radius: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 280px;
+      font-weight: 500;
+      color: #2c5a2e;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="container">
+    <div class="navbar">
+      <div class="logo">
+        <i class="fas fa-seedling"></i> EcoLiteracy
+      </div>
+      <button class="menu-toggle" id="mobileMenuBtn" aria-label="Menu">
+        <i class="fas fa-bars"></i>
+      </button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#approach">Our approach</a></li>
+        <li><a href="#impact">Impact</a></li>
+        <li><a href="#youth">Youth & Communities</a></li>
+        <li><a href="#join">Get involved</a></li>
+      </ul>
+    </div>
+  </div>
+</header>
+
+<main>
+  <!-- Hero section -->
+  <section id="home" class="hero">
+    <div class="container">
+      <div class="hero-grid">
+        <div class="hero-content">
+          <h1>Closing the <span style="color:#2c7a4b;">climate literacy</span> gap</h1>
+          <p>Many have heard about climate change, but real understanding drives action. We empower youth and marginalized communities with practical climate science — turning awareness into meaningful change.</p>
+          <a href="#join" class="btn"><i class="fas fa-graduation-cap"></i> Join the movement</a>
+          <div class="hero-stats">
+            <div class="stat"><div class="stat-number">70%</div><div>lack deep climate knowledge*</div></div>
+            <div class="stat"><div class="stat-number">150+</div><div>grassroots workshops</div></div>
+          </div>
+        </div>
+        <div class="hero-image">
+          <div class="placeholder-svg" style="background: #cbe5cd;">
+            <i class="fas fa-globe-africa" style="font-size: 5rem; color:#2c7a4b;"></i>
+            <span style="margin-left: 12px;">🌱 climate education in action</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- core pillars / understanding -->
+  <section id="approach" class="cards-section">
+    <div class="container">
+      <div class="section-title">
+        <h2>From awareness to real solutions</h2>
+        <p style="max-width: 700px; margin: 0 auto;">We simplify climate science and teach it at grassroots level, ensuring lasting impact.</p>
+      </div>
+      <div class="cards-grid">
+        <div class="card">
+          <div class="card-icon"><i class="fas fa-chalkboard-user"></i></div>
+          <h3>Know the causes</h3>
+          <p>Greenhouse gases, deforestation, and local drivers — demystifying the science behind global warming in relatable ways.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon"><i class="fas fa-hand-holding-heart"></i></div>
+          <h3>Understand impacts</h3>
+          <p>From extreme weather to food security, we connect global shifts to community realities and vulnerabilities.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon"><i class="fas fa-leaf"></i></div>
+          <h3>Practical solutions</h3>
+          <p>Sustainable habits, tree planting, renewable energy choices & advocacy — action steps that everyone can adopt.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Mission + impact statement (bridge) -->
+  <section id="impact" class="impact-section">
+    <div class="container">
+      <div class="two-columns">
+        <div class="impact-text">
+          <h2>Strengthening climate literacy where it matters most</h2>
+          <p>Our project bridges the gap between awareness and real knowledge, especially among young people and marginalized communities. Participants not only learn but also become multipliers, sharing sustainable habits across families and neighborhoods.</p>
+          <ul class="impact-list">
+            <li><i class="fas fa-check-circle"></i> Youth-led workshops & peer education</li>
+            <li><i class="fas fa-check-circle"></i> Customized resources for local contexts</li>
+            <li><i class="fas fa-check-circle"></i> Action grants for community-led green projects</li>
+            <li><i class="fas fa-check-circle"></i> Measurable increase in climate confident citizens</li>
+          </ul>
+        </div>
+        <div class="impact-visual">
+          <div class="quote">
+            <i class="fas fa-quote-left" style="color: #2c7a4b; margin-right: 8px;"></i> 
+            When communities truly understand climate science, they don't feel helpless — they become architects of change.
+            <div style="margin-top: 16px; font-weight: 600;">— Maria, Community facilitator</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- youth & marginalized communities specific -->
+  <section id="youth" class="youth-section">
+    <div class="container">
+      <div class="section-title">
+        <h2>Rooted in youth & marginalized communities</h2>
+        <p>Empowering those often left out of climate conversations — because real resilience is built together.</p>
+      </div>
+      <div class="youth-grid">
+        <div class="youth-card">
+          <i class="fas fa-users"></i>
+          <h3 style="margin: 20px 0 12px;">Grassroots training</h3>
+          <p>Interactive sessions in schools, local centers, and rural areas — delivered in accessible language.</p>
+        </div>
+        <div class="youth-card">
+          <i class="fas fa-school"></i>
+          <h3 style="margin: 20px 0 12px;">Youth ambassadors</h3>
+          <p>We train young leaders to cascade climate literacy, building a network of informed changemakers.</p>
+        </div>
+        <div class="youth-card">
+          <i class="fas fa-tree"></i>
+          <h3 style="margin: 20px 0 12px;">Community-led action</h3>
+          <p>From urban gardens to waste management, we support practical steps that protect the environment.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- detailed knowledge sharing & sustainable habits -->
+  <div class="container">
+    <div style="background: #ffffff; border-radius: 40px; padding: 48px 32px; margin: 20px 0; box-shadow: 0 4px 14px rgba(0,0,0,0.02);">
+      <div style="display: flex; flex-wrap: wrap; gap: 40px; align-items: center;">
+        <div style="flex: 1;">
+          <h2 style="margin-bottom: 16px;">Turning knowledge into everyday habits</h2>
+          <p>Our curriculum includes simple, actionable steps: reducing food waste, energy conservation, water harvesting, and supporting local biodiversity. Participants then share this knowledge, creating a ripple effect across the community.</p>
+          <div style="margin-top: 24px; display: flex; gap: 18px; flex-wrap: wrap;">
+            <span style="background: #eef5ea; padding: 6px 18px; border-radius: 40px;">🌿  Zero-waste workshops</span>
+            <span style="background: #eef5ea; padding: 6px 18px; border-radius: 40px;">💧  Rainwater harvesting</span>
+            <span style="background: #eef5ea; padding: 6px 18px; border-radius: 40px;">🌻  Native planting drives</span>
+          </div>
+        </div>
+        <div style="flex: 0.8; background: #eef2e8; border-radius: 32px; padding: 24px; text-align: center;">
+          <i class="fas fa-share-alt" style="font-size: 3rem; color: #2c7a4b;"></i>
+          <p style="margin-top: 12px; font-weight: 500;">1 trained person → 10 households inspired → informed community</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- call to action : join us -->
+  <section id="join" class="cta-section">
+    <div class="container">
+      <h2>Help build a climate-aware generation</h2>
+      <p style="max-width: 650px; margin: 16px auto 0; font-size: 1.1rem;">Be part of the movement that brings climate literacy to every doorstep. Together we educate, empower, and act.</p>
+      <a href="#" class="btn" style="background:#ffd966; color:#1e3a2f;"><i class="fas fa-hands-helping"></i> Become a partner / volunteer</a>
+      <p style="margin-top: 32px; font-size: 0.9rem;">Schools, NGOs, local groups — let's collaborate.</p>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <h4><i class="fas fa-seedling"></i> EcoLiteracy Project</h4>
+        <p>Democratizing climate science for grassroots change. Since 2024</p>
+      </div>
+      <div class="footer-col">
+        <h4>Quick links</h4>
+        <p><a href="#home">Home</a></p>
+        <p><a href="#approach">Approach</a></p>
+        <p><a href="#impact">Impact</a></p>
+        <p><a href="#youth">Youth focus</a></p>
+      </div>
+      <div class="footer-col">
+        <h4>Connect</h4>
+        <div class="social">
+          <i class="fab fa-twitter"></i>
+          <i class="fab fa-instagram"></i>
+          <i class="fab fa-linkedin"></i>
+          <i class="fab fa-youtube"></i>
+        </div>
+        <p style="margin-top: 16px;">hello@ecoliteracy.org</p>
+      </div>
+    </div>
+    <div class="copyright">
+      <p>© 2025 EcoLiteracy Initiative — empowering communities through climate knowledge. *Source: global climate literacy gap report.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // mobile menu toggle
+  const menuBtn = document.getElementById('mobileMenuBtn');
+  const navLinks = document.getElementById('navLinks');
+  if(menuBtn) {
+    menuBtn.addEventListener('click', () => {
+      navLinks.classList.toggle('show');
+    });
+  }
+  // close menu on link click (smooth)
+  const links = document.querySelectorAll('.nav-links a');
+  links.forEach(link => {
+    link.addEventListener('click', (e) => {
+      if(window.innerWidth <= 860) {
+        navLinks.classList.remove('show');
+      }
+      const targetId = link.getAttribute('href');
+      if(targetId && targetId.startsWith('#')) {
+        e.preventDefault();
+        const targetElem = document.querySelector(targetId);
+        if(targetElem) {
+          targetElem.scrollIntoView({ behavior: 'smooth' });
+        }
+      }
+    });
+  });
+  // hero button also smooth
+  const heroBtn = document.querySelector('.hero .btn');
+  if(heroBtn) {
+    heroBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      const joinSection = document.querySelector('#join');
+      if(joinSection) joinSection.scrollIntoView({ behavior: 'smooth' });
+    });
+  }
+  // cta button smooth (if same)
+  const ctaBtn = document.querySelector('.cta-section .btn');
+  if(ctaBtn) {
+    ctaBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      alert('Thank you for your interest! 📧 Get in touch at hello@ecoliteracy.org');
+    });
+  }
+  // small decorative for any external
+</script>
+</body>
+</html>
