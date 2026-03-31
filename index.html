@@ -136,51 +136,112 @@
       color: #1f4f2d;
     }
 
-    /* hero */
-    .hero {
-      padding: 60px 0 80px;
-      background: linear-gradient(135deg, #eaf7ed 0%, #d4eedb 100%);
+    /* ----- HERO SLIDER (carousel) ----- */
+    .hero-slider-section {
+      position: relative;
+      background: #1f3a2b;
       border-radius: 0 0 48px 48px;
+      overflow: hidden;
     }
-    .hero-grid {
+    .slider-container {
+      position: relative;
+      width: 100%;
+      height: 600px;
+      overflow: hidden;
+    }
+    .slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-size: cover;
+      background-position: center 30%;
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
       display: flex;
-      flex-wrap: wrap;
       align-items: center;
-      gap: 48px;
+      justify-content: center;
     }
-    .hero-content {
-      flex: 1.2;
+    .slide.active {
+      opacity: 1;
+      z-index: 1;
     }
-    .hero-content p {
-      font-size: 1.2rem;
-      color: #2a4225;
-      margin: 24px 0 32px;
-      max-width: 550px;
-    }
-    .hero-stats {
+    .slide-overlay {
+      background: linear-gradient(135deg, rgba(0,0,0,0.55), rgba(0,30,10,0.7));
+      width: 100%;
+      height: 100%;
       display: flex;
-      gap: 32px;
-      margin-top: 32px;
-    }
-    .stat {
-      text-align: left;
-    }
-    .stat-number {
-      font-size: 2rem;
-      font-weight: 800;
-      color: #1c6e3f;
-    }
-    .hero-image {
-      flex: 0.9;
+      align-items: center;
+      justify-content: center;
       text-align: center;
+      color: white;
+      padding: 2rem;
     }
-    .hero-image img {
-      max-width: 100%;
-      border-radius: 32px;
-      box-shadow: 0 25px 40px -18px rgba(0,0,0,0.2);
+    .slide-content {
+      max-width: 800px;
+      text-shadow: 0 2px 12px rgba(0,0,0,0.3);
+    }
+    .slide-content h1 {
+      font-size: clamp(2.5rem, 6vw, 4rem);
+      margin-bottom: 1rem;
+    }
+    .slide-content p {
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+      opacity: 0.95;
+    }
+    .slider-dots {
+      position: absolute;
+      bottom: 25px;
+      left: 0;
+      right: 0;
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      z-index: 10;
+    }
+    .dot {
+      width: 12px;
+      height: 12px;
+      background: #ddd;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    .dot.active {
+      background: #2c7a4b;
+      transform: scale(1.2);
+    }
+    .slider-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(0,0,0,0.5);
+      color: white;
+      border: none;
+      font-size: 2rem;
+      padding: 10px 18px;
+      cursor: pointer;
+      z-index: 15;
+      border-radius: 50%;
+      transition: 0.2s;
+    }
+    .slider-arrow:hover {
+      background: #2c7a4b;
+    }
+    .prev-arrow {
+      left: 20px;
+    }
+    .next-arrow {
+      right: 20px;
+    }
+    @media (max-width: 760px) {
+      .slider-container { height: 480px; }
+      .slider-arrow { font-size: 1.4rem; padding: 6px 12px; }
     }
 
-    /* cards / features */
+    /* cards */
     .cards-section {
       padding: 80px 0;
     }
@@ -214,11 +275,8 @@
       font-size: 1.6rem;
       margin-bottom: 12px;
     }
-    .card p {
-      color: #3b4e36;
-    }
 
-    /* impact / mission */
+    /* impact section */
     .impact-section {
       background: #f0f7ed;
       padding: 80px 0;
@@ -248,25 +306,76 @@
     .impact-list i {
       color: #2c7a4b;
       font-size: 1.4rem;
-      width: 28px;
-    }
-    .impact-visual {
-      flex: 1;
-      background: #ffffffcc;
-      border-radius: 32px;
-      padding: 20px;
-      text-align: center;
-    }
-    .quote {
-      font-style: italic;
-      font-size: 1.2rem;
-      background: white;
-      padding: 28px;
-      border-radius: 28px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.03);
     }
 
-    /* grassroots / youth focus */
+    /* TEAM SECTION */
+    .team-section {
+      padding: 80px 0;
+      background: #ffffff;
+    }
+    .team-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 40px;
+      justify-content: center;
+    }
+    .team-card {
+      background: white;
+      border-radius: 32px;
+      overflow: hidden;
+      width: 280px;
+      box-shadow: 0 12px 28px -10px rgba(0,0,0,0.08);
+      transition: all 0.3s;
+      text-align: center;
+      border: 1px solid #e6f0e4;
+    }
+    .team-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 25px 30px -12px rgba(44,122,75,0.2);
+    }
+    .team-img {
+      width: 100%;
+      height: 280px;
+      background-size: cover;
+      background-position: center;
+      background-color: #cbdcc6;
+    }
+    .team-info {
+      padding: 24px 20px 28px;
+    }
+    .team-info h3 {
+      font-size: 1.5rem;
+      margin-bottom: 6px;
+    }
+    .team-title {
+      color: #2c7a4b;
+      font-weight: 600;
+      margin-bottom: 14px;
+      font-size: 0.9rem;
+      letter-spacing: 0.5px;
+    }
+    .team-bio {
+      font-size: 0.9rem;
+      color: #4a5a44;
+      line-height: 1.5;
+    }
+    .social-team {
+      margin-top: 16px;
+      display: flex;
+      justify-content: center;
+      gap: 18px;
+    }
+    .social-team i {
+      color: #5a7a4c;
+      transition: 0.2s;
+      font-size: 1.2rem;
+      cursor: pointer;
+    }
+    .social-team i:hover {
+      color: #2c7a4b;
+    }
+
+    /* youth & cta */
     .youth-section {
       padding: 80px 0;
     }
@@ -284,15 +393,6 @@
       text-align: center;
       border: 1px solid #e0efdf;
     }
-    .youth-card i {
-      font-size: 2.4rem;
-      background: #e9f3e6;
-      padding: 16px;
-      border-radius: 60px;
-      color: #2c7a4b;
-    }
-
-    /* call to action */
     .cta-section {
       background: #1e3a2f;
       color: white;
@@ -301,19 +401,6 @@
       border-radius: 48px;
       margin: 40px 0;
     }
-    .cta-section h2 {
-      color: white;
-    }
-    .cta-section .btn {
-      background: #ffd966;
-      color: #1e3a2f;
-      margin-top: 28px;
-    }
-    .cta-section .btn:hover {
-      background: #ffcd38;
-    }
-
-    /* footer */
     footer {
       background: #121e0f;
       color: #cfe6cf;
@@ -328,40 +415,15 @@
       gap: 40px;
       margin-bottom: 40px;
     }
-    .footer-col h4 {
-      color: white;
-      margin-bottom: 18px;
-      font-weight: 600;
-    }
-    .footer-col p, .footer-col a {
-      color: #bcddae;
-      text-decoration: none;
-      line-height: 1.8;
-    }
-    .social i {
-      font-size: 1.5rem;
-      margin-right: 18px;
-      transition: 0.2s;
-    }
-    .social i:hover {
-      color: white;
-    }
     .copyright {
       text-align: center;
       padding-top: 32px;
       border-top: 1px solid #2c4625;
       font-size: 0.85rem;
     }
-
-    /* responsiveness */
     @media (max-width: 860px) {
-      .container {
-        padding: 0 24px;
-      }
-      .navbar {
-        flex-direction: row;
-        justify-content: space-between;
-      }
+      .container { padding: 0 24px; }
+      .navbar { flex-direction: row; justify-content: space-between; }
       .nav-links {
         display: none;
         flex-direction: column;
@@ -373,40 +435,17 @@
         padding: 28px;
         border-radius: 28px;
         box-shadow: 0 20px 30px rgba(0,0,0,0.1);
-        gap: 20px;
         z-index: 100;
       }
-      .nav-links.show {
-        display: flex;
-      }
-      .menu-toggle {
-        display: block;
-      }
-      .hero-grid, .two-columns {
-        flex-direction: column;
-      }
-      .hero-stats {
-        flex-wrap: wrap;
-      }
+      .nav-links.show { display: flex; }
+      .menu-toggle { display: block; }
+      .two-columns { flex-direction: column; }
     }
     @media (min-width: 861px) {
-      .nav-links {
-        display: flex !important;
-      }
+      .nav-links { display: flex !important; }
     }
-    img {
-      max-width: 100%;
-      height: auto;
-    }
-    .placeholder-svg {
-      background: #cfe6cf;
-      border-radius: 32px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 280px;
-      font-weight: 500;
-      color: #2c5a2e;
+    .placeholder-icon {
+      font-size: 3rem;
     }
   </style>
 </head>
@@ -423,9 +462,10 @@
       </button>
       <ul class="nav-links" id="navLinks">
         <li><a href="#home">Home</a></li>
-        <li><a href="#approach">Our approach</a></li>
+        <li><a href="#approach">Approach</a></li>
         <li><a href="#impact">Impact</a></li>
-        <li><a href="#youth">Youth & Communities</a></li>
+        <li><a href="#team">Team</a></li>
+        <li><a href="#youth">Communities</a></li>
         <li><a href="#join">Get involved</a></li>
       </ul>
     </div>
@@ -433,30 +473,44 @@
 </header>
 
 <main>
-  <!-- Hero section -->
-  <section id="home" class="hero">
-    <div class="container">
-      <div class="hero-grid">
-        <div class="hero-content">
-          <h1>Closing the <span style="color:#2c7a4b;">climate literacy</span> gap</h1>
-          <p>Many have heard about climate change, but real understanding drives action. We empower youth and marginalized communities with practical climate science — turning awareness into meaningful change.</p>
-          <a href="#join" class="btn"><i class="fas fa-graduation-cap"></i> Join the movement</a>
-          <div class="hero-stats">
-            <div class="stat"><div class="stat-number">70%</div><div>lack deep climate knowledge*</div></div>
-            <div class="stat"><div class="stat-number">150+</div><div>grassroots workshops</div></div>
-          </div>
-        </div>
-        <div class="hero-image">
-          <div class="placeholder-svg" style="background: #cbe5cd;">
-            <i class="fas fa-globe-africa" style="font-size: 5rem; color:#2c7a4b;"></i>
-            <span style="margin-left: 12px;">🌱 climate education in action</span>
+  <!-- SLIDER HERO SECTION: community meetings, workshops, grassroots -->
+  <section id="home" class="hero-slider-section">
+    <div class="slider-container">
+      <!-- slides: each with background image from unsplash (climate/community style) -->
+      <div class="slide active" style="background-image: url('https://images.unsplash.com/photo-1593113630400-ea4288922497?w=1600&h=900&fit=crop');">
+        <div class="slide-overlay">
+          <div class="slide-content">
+            <h1>Grassroots climate conversations</h1>
+            <p>Community meetings where real understanding begins — from rural villages to urban youth collectives.</p>
+            <a href="#join" class="btn" style="background:#ffd966; color:#1e3a2f;"><i class="fas fa-hand-peace"></i> Join a meeting</a>
           </div>
         </div>
       </div>
+      <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=1600&h=900&fit=crop');">
+        <div class="slide-overlay">
+          <div class="slide-content">
+            <h1>Youth-led workshops</h1>
+            <p>Empowering young leaders to demystify climate science and spark local action.</p>
+            <a href="#youth" class="btn">Explore youth programs</a>
+          </div>
+        </div>
+      </div>
+      <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1531482615713-2afd69097998?w=1600&h=900&fit=crop');">
+        <div class="slide-overlay">
+          <div class="slide-content">
+            <h1>Marginalized communities first</h1>
+            <p>Inclusive climate literacy, practical solutions, and shared knowledge for resilience.</p>
+            <a href="#impact" class="btn btn-outline" style="background:white; color:#1e3a2f;">See our impact</a>
+          </div>
+        </div>
+      </div>
+      <button class="slider-arrow prev-arrow" id="prevSlide"><i class="fas fa-chevron-left"></i></button>
+      <button class="slider-arrow next-arrow" id="nextSlide"><i class="fas fa-chevron-right"></i></button>
+      <div class="slider-dots" id="sliderDots"></div>
     </div>
   </section>
 
-  <!-- core pillars / understanding -->
+  <!-- core pillars -->
   <section id="approach" class="cards-section">
     <div class="container">
       <div class="section-title">
@@ -467,7 +521,7 @@
         <div class="card">
           <div class="card-icon"><i class="fas fa-chalkboard-user"></i></div>
           <h3>Know the causes</h3>
-          <p>Greenhouse gases, deforestation, and local drivers — easier to understand the science behind global warming in relatable ways.</p>
+          <p>Greenhouse gases, deforestation, and local drivers — demystifying the science behind global warming in relatable ways.</p>
         </div>
         <div class="card">
           <div class="card-icon"><i class="fas fa-hand-holding-heart"></i></div>
@@ -483,7 +537,7 @@
     </div>
   </section>
 
-  <!-- Mission + impact statement (bridge) -->
+  <!-- impact mission -->
   <section id="impact" class="impact-section">
     <div class="container">
       <div class="two-columns">
@@ -493,22 +547,67 @@
           <ul class="impact-list">
             <li><i class="fas fa-check-circle"></i> Youth-led workshops & peer education</li>
             <li><i class="fas fa-check-circle"></i> Customized resources for local contexts</li>
-           
+            <li><i class="fas fa-check-circle"></i> Action grants for community-led green projects</li>
             <li><i class="fas fa-check-circle"></i> Measurable increase in climate confident citizens</li>
           </ul>
         </div>
-        <div class="impact-visual">
-          <div class="quote">
-            <i class="fas fa-quote-left" style="color: #2c7a4b; margin-right: 8px;"></i> 
-            When communities truly understand climate science, they don't feel helpless — they become architects of change.
-            <div style="margin-top: 16px; font-weight: 600;">— Maria, Community facilitator</div>
+        <div class="impact-visual" style="background:#ffffffcc; border-radius:32px; padding:24px; text-align:center;">
+          <i class="fas fa-chart-line" style="font-size: 3rem; color:#2c7a4b;"></i>
+          <p style="margin-top: 16px; font-weight:500;">85% of participants report better understanding of climate solutions after workshops.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TEAM MEMBERS SECTION (modern, professional) -->
+  <section id="team" class="team-section">
+    <div class="container">
+      <div class="section-title">
+        <h2>Meet the changemakers</h2>
+        <p>Passionate educators, climate scientists & grassroots organizers driving climate literacy.</p>
+      </div>
+      <div class="team-grid">
+        <div class="team-card">
+          <div class="team-img" style="background-image: url('https://randomuser.me/api/portraits/women/68.jpg'); background-size: cover;"></div>
+          <div class="team-info">
+            <h3>Dr. Amina Diallo</h3>
+            <div class="team-title">Climate Education Director</div>
+            <p class="team-bio">Former IPCC contributor, leading curriculum design that simplifies complex climate science for grassroots educators.</p>
+            <div class="social-team"><i class="fab fa-linkedin"></i><i class="fab fa-twitter"></i><i class="fas fa-envelope"></i></div>
+          </div>
+        </div>
+        <div class="team-card">
+          <div class="team-img" style="background-image: url('https://randomuser.me/api/portraits/men/32.jpg'); background-size: cover;"></div>
+          <div class="team-info">
+            <h3>James Mwangi</h3>
+            <div class="team-title">Community Engagement Lead</div>
+            <p class="team-bio">Grassroots organizer working directly with youth groups and marginalized communities across 5 regions.</p>
+            <div class="social-team"><i class="fab fa-linkedin"></i><i class="fab fa-instagram"></i><i class="fas fa-globe"></i></div>
+          </div>
+        </div>
+        <div class="team-card">
+          <div class="team-img" style="background-image: url('https://randomuser.me/api/portraits/women/45.jpg'); background-size: cover;"></div>
+          <div class="team-info">
+            <h3>Dr. Lin Chen</h3>
+            <div class="team-title">Sustainability Researcher</div>
+            <p class="team-bio">Specializes in climate adaptation and co-designing practical toolkits for low-income communities.</p>
+            <div class="social-team"><i class="fab fa-researchgate"></i><i class="fab fa-twitter"></i></div>
+          </div>
+        </div>
+        <div class="team-card">
+          <div class="team-img" style="background-image: url('https://randomuser.me/api/portraits/men/75.jpg'); background-size: cover;"></div>
+          <div class="team-info">
+            <h3>Carlos Rivera</h3>
+            <div class="team-title">Youth Program Coordinator</div>
+            <p class="team-bio">Former environmental educator, leads youth ambassador networks and climate summer camps.</p>
+            <div class="social-team"><i class="fab fa-linkedin"></i><i class="fab fa-tiktok"></i></div>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- youth & marginalized communities specific -->
+  <!-- youth & marginalized communities -->
   <section id="youth" class="youth-section">
     <div class="container">
       <div class="section-title">
@@ -517,17 +616,17 @@
       </div>
       <div class="youth-grid">
         <div class="youth-card">
-          <i class="fas fa-users"></i>
-          <h3 style="margin: 20px 0 12px;">Grassroots training</h3>6
+          <i class="fas fa-users" style="font-size:2.5rem; color:#2c7a4b;"></i>
+          <h3 style="margin: 20px 0 12px;">Grassroots training</h3>
           <p>Interactive sessions in schools, local centers, and rural areas — delivered in accessible language.</p>
         </div>
         <div class="youth-card">
-          <i class="fas fa-school"></i>
+          <i class="fas fa-school" style="font-size:2.5rem; color:#2c7a4b;"></i>
           <h3 style="margin: 20px 0 12px;">Youth ambassadors</h3>
           <p>We train young leaders to cascade climate literacy, building a network of informed changemakers.</p>
         </div>
         <div class="youth-card">
-          <i class="fas fa-tree"></i>
+          <i class="fas fa-tree" style="font-size:2.5rem; color:#2c7a4b;"></i>
           <h3 style="margin: 20px 0 12px;">Community-led action</h3>
           <p>From urban gardens to waste management, we support practical steps that protect the environment.</p>
         </div>
@@ -535,7 +634,7 @@
     </div>
   </section>
 
-  <!-- detailed knowledge sharing & sustainable habits -->
+  <!-- knowledge sharing block -->
   <div class="container">
     <div style="background: #ffffff; border-radius: 40px; padding: 48px 32px; margin: 20px 0; box-shadow: 0 4px 14px rgba(0,0,0,0.02);">
       <div style="display: flex; flex-wrap: wrap; gap: 40px; align-items: center;">
@@ -543,9 +642,9 @@
           <h2 style="margin-bottom: 16px;">Turning knowledge into everyday habits</h2>
           <p>Our curriculum includes simple, actionable steps: reducing food waste, energy conservation, water harvesting, and supporting local biodiversity. Participants then share this knowledge, creating a ripple effect across the community.</p>
           <div style="margin-top: 24px; display: flex; gap: 18px; flex-wrap: wrap;">
-            <span style="background: #eef5ea; padding: 6px 18px; border-radius: 40px;">🌿  Zero-waste workshops</span>
-            
-            <span style="background: #eef5ea; padding: 6px 18px; border-radius: 40px;">🌻  Native planting drives</span>
+            <span style="background: #eef5ea; padding: 6px 18px; border-radius: 40px;">🌿 Zero-waste workshops</span>
+            <span style="background: #eef5ea; padding: 6px 18px; border-radius: 40px;">💧 Rainwater harvesting</span>
+            <span style="background: #eef5ea; padding: 6px 18px; border-radius: 40px;">🌻 Native planting drives</span>
           </div>
         </div>
         <div style="flex: 0.8; background: #eef2e8; border-radius: 32px; padding: 24px; text-align: center;">
@@ -556,7 +655,7 @@
     </div>
   </div>
 
-  <!-- call to action : join us -->
+  <!-- call to action -->
   <section id="join" class="cta-section">
     <div class="container">
       <h2>Help build a climate-aware generation</h2>
@@ -576,10 +675,10 @@
       </div>
       <div class="footer-col">
         <h4>Quick links</h4>
-        <p><a href="#home">Home</a></p>
-        <p><a href="#approach">Approach</a></p>
-        <p><a href="#impact">Impact</a></p>
-        <p><a href="#youth">Youth focus</a></p>
+        <p><a href="#home" style="color:#bcddae;">Home</a></p>
+        <p><a href="#approach" style="color:#bcddae;">Approach</a></p>
+        <p><a href="#team" style="color:#bcddae;">Team</a></p>
+        <p><a href="#youth" style="color:#bcddae;">Communities</a></p>
       </div>
       <div class="footer-col">
         <h4>Connect</h4>
@@ -587,61 +686,89 @@
           <i class="fab fa-twitter"></i>
           <i class="fab fa-instagram"></i>
           <i class="fab fa-linkedin"></i>
-          <i class="fab fa-youtube"></i>
         </div>
-        <p style="margin-top: 16px;">taongazulu978@gmail.com</p>
+        <p style="margin-top: 16px;">hello@ecoliteracy.org</p>
       </div>
     </div>
     <div class="copyright">
-      <p>© 2025 EcoLiteracy Initiative — empowering communities through climate knowledge. *Source: global climate literacy gap report.</p>
+      <p>© 2025 EcoLiteracy Initiative — empowering communities through climate knowledge.</p>
     </div>
   </div>
 </footer>
 
 <script>
-  // mobile menu toggle
+  // Mobile menu toggle
   const menuBtn = document.getElementById('mobileMenuBtn');
   const navLinks = document.getElementById('navLinks');
   if(menuBtn) {
-    menuBtn.addEventListener('click', () => {
-      navLinks.classList.toggle('show');
-    });
+    menuBtn.addEventListener('click', () => navLinks.classList.toggle('show'));
   }
-  // close menu on link click (smooth)
-  const links = document.querySelectorAll('.nav-links a');
-  links.forEach(link => {
+  document.querySelectorAll('.nav-links a').forEach(link => {
     link.addEventListener('click', (e) => {
-      if(window.innerWidth <= 860) {
-        navLinks.classList.remove('show');
-      }
-      const targetId = link.getAttribute('href');
-      if(targetId && targetId.startsWith('#')) {
+      if(window.innerWidth <= 860) navLinks.classList.remove('show');
+      const hash = link.getAttribute('href');
+      if(hash && hash.startsWith('#')) {
         e.preventDefault();
-        const targetElem = document.querySelector(targetId);
-        if(targetElem) {
-          targetElem.scrollIntoView({ behavior: 'smooth' });
-        }
+        const el = document.querySelector(hash);
+        if(el) el.scrollIntoView({ behavior: 'smooth' });
       }
     });
   });
-  // hero button also smooth
-  const heroBtn = document.querySelector('.hero .btn');
-  if(heroBtn) {
-    heroBtn.addEventListener('click', (e) => {
-      e.preventDefault();
-      const joinSection = document.querySelector('#join');
-      if(joinSection) joinSection.scrollIntoView({ behavior: 'smooth' });
+
+  // ---------- SLIDER CAROUSEL LOGIC ----------
+  const slides = document.querySelectorAll('.slide');
+  const dotsContainer = document.getElementById('sliderDots');
+  let currentIndex = 0;
+  let autoInterval;
+
+  function createDots() {
+    slides.forEach((_, i) => {
+      const dot = document.createElement('div');
+      dot.classList.add('dot');
+      if(i === currentIndex) dot.classList.add('active');
+      dot.addEventListener('click', () => goToSlide(i));
+      dotsContainer.appendChild(dot);
     });
   }
-  // cta button smooth (if same)
-  const ctaBtn = document.querySelector('.cta-section .btn');
-  if(ctaBtn) {
-    ctaBtn.addEventListener('click', (e) => {
-      e.preventDefault();
-      alert('Thank you for your interest! 📧 Get in touch at hello@ecoliteracy.org');
+
+  function updateDots() {
+    const dots = document.querySelectorAll('.dot');
+    dots.forEach((dot, idx) => {
+      if(idx === currentIndex) dot.classList.add('active');
+      else dot.classList.remove('active');
     });
   }
-  // small decorative for any external
+
+  function goToSlide(index) {
+    slides[currentIndex].classList.remove('active');
+    currentIndex = (index + slides.length) % slides.length;
+    slides[currentIndex].classList.add('active');
+    updateDots();
+    resetAutoPlay();
+  }
+
+  function nextSlide() { goToSlide(currentIndex + 1); }
+  function prevSlide() { goToSlide(currentIndex - 1); }
+
+  function resetAutoPlay() {
+    if(autoInterval) clearInterval(autoInterval);
+    autoInterval = setInterval(() => nextSlide(), 5500);
+  }
+
+  document.getElementById('nextSlide').addEventListener('click', nextSlide);
+  document.getElementById('prevSlide').addEventListener('click', prevSlide);
+  createDots();
+  resetAutoPlay();
+
+  // smooth for hero btn
+  document.querySelector('.slide-content .btn')?.addEventListener('click', (e) => {
+    e.preventDefault();
+    document.querySelector('#join')?.scrollIntoView({ behavior: 'smooth' });
+  });
+  document.querySelector('.cta-section .btn')?.addEventListener('click', (e) => {
+    e.preventDefault();
+    alert('Thank you for your interest! 📧 Reach out at hello@ecoliteracy.org');
+  });
 </script>
 </body>
 </html>
